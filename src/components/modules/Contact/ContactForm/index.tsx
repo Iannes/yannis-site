@@ -31,7 +31,6 @@ const ContactForm = () => {
         message: Yup.string().required('Message field is required'),
       })}
       onSubmit={(values, actions) => {
-        console.log(values);
         fetch('/', {
           method: 'POST',
           headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
