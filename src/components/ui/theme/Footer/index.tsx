@@ -6,21 +6,7 @@ const Footer = () => (
     <div className="container flex items-center md:items-end text-center md:text-left justify-between flex-col md:flex-row">
       <div className="mb-8 md:mb-0">
         <h2 className="text-brand-primary font-bold text-2xl mb-4">Yannis Spyrou</h2>
-        <span className="text-brand-primary">
-          © All rights reserved | {new Date().getFullYear()} | Made with{' '}
-          <span aria-label="love" role="img">
-            💖
-          </span>{' '}
-          by{' '}
-          <a
-            href="https://www.yannisspyrou.com/"
-            rel="noopener noreferrer"
-            target="_blank"
-            className="text-brand-primary"
-          >
-            Yannis Spyrou
-          </a>
-        </span>
+        <span className="text-brand-primary">© All rights reserved | {new Date().getFullYear()}</span>
       </div>
       <div className="flex items-center">
         {social.map(({ id, name, link, icon }) => (
