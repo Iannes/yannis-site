@@ -40,7 +40,7 @@ const ContactForm = () => {
             actions.resetForm();
           })
           .catch(() => {
-            alert('Error');
+            console.log('Error');
           })
           .finally(() => actions.setSubmitting(false));
       }}
