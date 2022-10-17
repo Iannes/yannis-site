@@ -85,13 +85,6 @@ const ContactForm = () => {
             />
             <ErrorMessage className="text-red-600 block mt-1" component="span" name="message" />
           </div>
-          {state.succeeded && (
-            <div className="relative mb-4">
-              <div className="text-center">
-                <h4 className="font-normal">Your message has been successfully sent, I will get back to you ASAP!</h4>
-              </div>
-            </div>
-          )}
           <div className="text-left">
             <button type="submit" className="button button-secondary" disabled={isSubmitting}>
               Submit
