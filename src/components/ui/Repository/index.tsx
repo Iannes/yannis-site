@@ -2,9 +2,9 @@ import { useTheme } from 'next-themes';
 import React from 'react';
 import ForkIcon from 'components/ui/Icons/Fork';
 import StarIcon from 'components/ui/Icons/Star';
-import { Repository } from 'generated/graphql';
+// import { Repository } from 'generated/graphql';
 
-const Repository = ({ name, description, stargazers, forkCount, languages, url }: Repository) => {
+const Repository = ({ name, description, stargazers, forkCount, languages, url }: any) => {
   const { resolvedTheme } = useTheme();
 
   return (
@@ -22,7 +22,7 @@ const Repository = ({ name, description, stargazers, forkCount, languages, url }
         {languages?.nodes && languages.nodes.length > 0 && (
           <div className="flex justify-between flex-row mb-3">
             <div>
-              {languages.nodes.map((item) => (
+              {languages.nodes.map((item: any) => (
                 <span className="text-gray-700 dark:text-gray-200 italic mr-2 last:mr-0 text-xs" key={item?.id}>
                   {item?.name}
                 </span>
