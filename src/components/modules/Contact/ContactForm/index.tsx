@@ -1,6 +1,6 @@
 import * as React from 'react';
 import cx from 'classnames';
-import { Formik, Form, FastField, ErrorMessage } from 'formik';
+import { Formik, Field, Form, FastField, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 
 type FormType = {
@@ -9,10 +9,14 @@ type FormType = {
   message: string;
 };
 
-const ContactForm = () => {
-  const [state, setState] = React.useState(process.env.NEXT_PUBLIC_FORM as string);
+const encode = (data: any) => {
+  return Object.keys(data)
+    .map((key) => encodeURIComponent(key) + '=' + encodeURIComponent(data[key]))
+    .join('&');
+};
 
-  const handleSubmit = () => {};
+const ContactForm = () => {
+  const [state, handleSubmit] = React.useState(process.env.NEXT_PUBLIC_FORM as any);
 
   return (
     <Formik
@@ -20,18 +24,34 @@ const ContactForm = () => {
         name: '',
         email: '',
         message: '',
-        recaptcha: '',
       }}
       validationSchema={Yup.object().shape({
         name: Yup.string().required('Full name field is required'),
         email: Yup.string().email('Invalid email').required('Email field is required'),
         message: Yup.string().required('Message field is required'),
       })}
-      onSubmit={handleSubmit}
+      onSubmit={(values, actions) => {
+        console.log(values);
+        fetch('/', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: encode({ 'form-name': 'contact-demo', ...values }),
+        })
+          .then(() => {
+            alert('Success');
+            actions.resetForm();
+          })
+          .catch(() => {
+            alert('Error');
+          })
+          .finally(() => actions.setSubmitting(false));
+      }}
     >
       {({ values, touched, errors, setFieldValue, isSubmitting }) => (
-        <Form name="contact-form" method="post" data-netlify="true" data-netlify-honeypot="bot-field" action="/success">
-          <input type="hidden" name="form-name" value="contact-form" />
+        <Form name="contact-form" data-netlify="true">
+          <Field type="hidden" name="bot-field" />
+          <Field type="hidden" name="form-name" />
+
           <div className="relative mb-4">
             <FastField
               type="text"
