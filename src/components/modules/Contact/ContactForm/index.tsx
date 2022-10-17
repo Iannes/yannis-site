@@ -31,6 +31,7 @@ const ContactForm = () => {
     >
       {({ values, touched, errors, setFieldValue, isSubmitting }) => (
         <Form name="contact-form" method="post" data-netlify="true" data-netlify-honeypot="bot-field" action="/success">
+          <input type="hidden" name="form-name" value="contact-form" />
           <div className="relative mb-4">
             <FastField
               type="text"
