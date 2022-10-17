@@ -28,7 +28,7 @@ const ContactForm = () => {
       onSubmit={handleSubmit}
     >
       {({ values, touched, errors, setFieldValue, isSubmitting }) => (
-        <Form name="contact-form" method="post" data-netlify="true" data-netlify-honeypot="bot-field" action="/success">
+        <Form name="contact-form" method="post" data-netlify="true" data-netlify-honeypot="bot-field">
           <div className="relative mb-4">
             <FastField
               type="text"
