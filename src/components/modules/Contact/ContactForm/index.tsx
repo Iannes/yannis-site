@@ -25,10 +25,10 @@ const ContactForm = () => {
         email: Yup.string().email('Invalid email').required('Email field is required'),
         message: Yup.string().required('Message field is required'),
       })}
-      onSubmit={handleSubmit}
+      onSubmit={() => {}}
     >
       {({ values, touched, errors, setFieldValue, isSubmitting }) => (
-        <Form name="contact-form" method="post" data-netlify="true" data-netlify-honeypot="bot-field">
+        <form name="contact-form" method="post" data-netlify="true" data-netlify-honeypot="bot-field">
           <div className="relative mb-4">
             <FastField
               type="text"
@@ -76,7 +76,7 @@ const ContactForm = () => {
               Submit
             </button>
           </div>
-        </Form>
+        </form>
       )}
     </Formik>
   );
