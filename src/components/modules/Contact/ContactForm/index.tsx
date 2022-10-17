@@ -37,7 +37,6 @@ const ContactForm = () => {
           body: encode({ 'form-name': 'contact-demo', ...values }),
         })
           .then(() => {
-            alert('Success');
             actions.resetForm();
           })
           .catch(() => {
