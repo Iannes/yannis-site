@@ -10,7 +10,7 @@ const Intro = () => (
         <h1 className="mb-8 text-3xl md:text-5xl font-bold text-brand-primary dark:text-white typography">Hi there</h1>
         {/* <span className="md:visible sm:invisible">👋</span> */}
         <h2 className="mb-[2.5rem] text-2xl md:text-4xl text-brand-secondary dark:text-slate-200 typography">
-          I’m Yannis and I’m a frontend engineer!
+          I&apos;m Yannis, a frontend engineer working with React &amp; TypeScript!
         </h2>
         <Link href="#contact" passHref>
           <a className="button button-primary">Contact</a>
@@ -19,7 +19,7 @@ const Intro = () => (
       <div className="flex-1 w-full md:w-1/2">
         <Image
           src="/assets/illustrations/dev.svg"
-          alt="I’m Yannis and I’m a Frontend engineer!"
+          alt="I'm Yannis, a Frontend engineer!"
           width={463}
           height={273}
           priority

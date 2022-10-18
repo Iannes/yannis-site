@@ -1,123 +1,132 @@
 import * as React from 'react';
-import cx from 'classnames';
-import { Formik, Field, Form, FastField, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
 
-type FormType = {
+type FormData = {
   name: string;
   email: string;
   message: string;
+  'form-name': string;
 };
 
-const encode = (data: any) => {
+const schema = Yup.object({
+  name: Yup.string().required(),
+  email: Yup.string().required(),
+  message: Yup.string().required(),
+}).required();
+
+function encode(data: FormData) {
   return Object.keys(data)
-    .map((key) => encodeURIComponent(key) + '=' + encodeURIComponent(data[key]))
+    .map((key) => encodeURIComponent(key) + '=' + encodeURIComponent(data[key as keyof typeof data]))
     .join('&');
-};
+}
 
 const ContactForm = () => {
-  const [state, handleSubmit] = React.useState(process.env.NEXT_PUBLIC_FORM as any);
+  const [success, setSuccess] = React.useState(false);
+  const [formSubmissionError, setFormSubmissionError] = React.useState(false);
+  const {
+    register,
+    handleSubmit,
+    reset,
+    getValues,
+    formState: { errors },
+  } = useForm<FormData>({
+    defaultValues: {
+      name: '',
+      email: '',
+      message: '',
+    },
+    resolver: yupResolver(schema),
+  });
+
+  const onSubmit = () => {
+    const values = getValues();
+    fetch('/', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: encode({
+        ...values,
+        'form-name': 'contact-form',
+      }),
+    })
+      .then((response) => {
+        reset();
+        setSuccess(true);
+        return;
+      })
+      .catch((error) => {
+        console.log(error);
+        setFormSubmissionError(true);
+        return;
+      });
+  };
 
   return (
-    <Formik
-      initialValues={{
-        name: '',
-        email: '',
-        message: '',
-      }}
-      validationSchema={Yup.object().shape({
-        name: Yup.string().required('Full name field is required'),
-        email: Yup.string().email('Invalid email').required('Email field is required'),
-        message: Yup.string().required('Message field is required'),
-      })}
-      onSubmit={(values, actions) => {
-        fetch('/', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-          body: encode({ 'form-name': 'contact-demo', ...values }),
-        })
-          .then(() => {
-            actions.resetForm();
-          })
-          .catch(() => {
-            console.log('Error');
-          })
-          .finally(() => actions.setSubmitting(false));
-      }}
-    >
-      {({ values, touched, errors, setFieldValue, isSubmitting }) => (
-        <Form name="contact-form" data-netlify="true">
-          <Field type="hidden" name="bot-field" />
-          <Field type="hidden" name="form-name" />
-
-          <div className="relative mb-4">
-            <FastField
-              type="text"
-              name="name"
-              component="input"
-              aria-label="name"
-              placeholder="Full name*"
-              className={cx('input', {
-                'input-error': touched.name && errors.name,
-              })}
-            />
-            <ErrorMessage className="text-red-600 block mt-1" component="span" name="name" />
+    <form onSubmit={handleSubmit(onSubmit)} name="contact-form" action="/success" method="POST" data-netlify="true">
+      <input type="hidden" name="form-name" value="contact-form" />
+      <div className="relative mb-4">
+        {/* <label htmlFor="name">Your Name:</label> <br /> */}
+        <input
+          aria-invalid={errors.name ? 'true' : 'false'}
+          {...register('name')}
+          type="text"
+          name="name"
+          id="name"
+          className="input"
+          placeholder="Full name*"
+        />
+        {errors.name?.type === 'required' && (
+          <div className="text-red-600 block mt-1" role="alert">
+            Name is required
           </div>
-          <div className="relative mb-4">
-            <FastField
-              id="email"
-              aria-label="email"
-              component="input"
-              type="email"
-              name="email"
-              placeholder="Email*"
-              className={cx('input', {
-                'input-error': touched.email && errors.email,
-              })}
-            />
-            <ErrorMessage className="text-red-600 block mt-1" component="span" name="email" />
+        )}
+      </div>
+      <div className="relative mb-4">
+        {/* <label htmlFor="email">Your Email:</label> <br /> */}
+        <input
+          aria-invalid={errors.email ? 'true' : 'false'}
+          {...register('email')}
+          type="email"
+          name="email"
+          id="email"
+          className="input"
+          placeholder="Email*"
+        />
+        {errors.email?.type === 'required' && (
+          <div className="text-red-600 block mt-1" role="alert">
+            Email is required
           </div>
-          <div className="relative mb-4">
-            <FastField
-              component="textarea"
-              aria-label="message"
-              id="message"
-              rows="8"
-              type="text"
-              name="message"
-              placeholder="Message*"
-              className={cx('input', {
-                'input-error': touched.message && errors.message,
-              })}
-            />
-            <ErrorMessage className="text-red-600 block mt-1" component="span" name="message" />
+        )}
+      </div>
+      <div className="relative mb-4">
+        {/* <label htmlFor="message">Message</label> <br /> */}
+        <textarea
+          aria-invalid={errors.message ? 'true' : 'false'}
+          {...register('message')}
+          name="message"
+          id="message"
+          className="input"
+          placeholder="Message*"
+        ></textarea>
+        {errors.message?.type === 'required' && (
+          <div className="text-red-600 block mt-1" role="alert">
+            Message is required
           </div>
-          {/* {values.name && values.email && values.message && process.env.NODE_ENV !== 'development' && (
-            <div className="relative mb-4">
-              <FastField
-                component={Recaptcha}
-                sitekey={process.env.NEXT_PUBLIC_PORTFOLIO_RECAPTCHA_KEY}
-                name="recaptcha"
-                onChange={(value: string) => setFieldValue('recaptcha', value)}
-              />
-              <ErrorMessage className="text-red-600 block mt-1" component="span" name="recaptcha" />
-            </div>
-          )}
-          {state.succeeded && (
-            <div className="relative mb-4">
-              <div className="text-center">
-                <h4 className="font-normal">Your message has been successfully sent, I will get back to you ASAP!</h4>
-              </div>
-            </div>
-          )} */}
-          <div className="text-left">
-            <button type="submit" className="button button-secondary" disabled={isSubmitting}>
-              Submit
-            </button>
-          </div>
-        </Form>
+        )}
+      </div>
+      <div className="text-left">
+        <button type="submit" className="button button-secondary">
+          Submit
+        </button>
+      </div>
+      {success && (
+        <div className="text-green-600 block mt-1">
+          Thank you for your message! I will get back to you within the next 24 hours.
+        </div>
       )}
-    </Formik>
+      {formSubmissionError && <div className="text-red-600 block mt-1">Form was not sent. Please try again :/</div>}
+    </form>
   );
 };
 
