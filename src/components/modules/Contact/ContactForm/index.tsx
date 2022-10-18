@@ -23,6 +23,8 @@ function encode(data: FormData) {
 }
 
 const ContactForm = () => {
+  const [success, setSuccess] = React.useState(false);
+  const [formSubmissionError, setFormSubmissionError] = React.useState(false);
   const {
     register,
     handleSubmit,
@@ -50,10 +52,13 @@ const ContactForm = () => {
     })
       .then((response) => {
         reset();
-        console.log(response);
+        setSuccess(true);
+        return;
       })
       .catch((error) => {
         console.log(error);
+        setFormSubmissionError(true);
+        return;
       });
   };
 
@@ -115,6 +120,12 @@ const ContactForm = () => {
           Submit
         </button>
       </div>
+      {success && (
+        <div className="text-green-600 block mt-1">
+          Thank you for your message! I will get back to you within the next 24 hours.
+        </div>
+      )}
+      {formSubmissionError && <div className="text-red-600 block mt-1">Form was not sent. Please try again :/</div>}
     </form>
   );
 };
