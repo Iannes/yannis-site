@@ -7,6 +7,7 @@ type FormData = {
   name: string;
   email: string;
   message: string;
+  'form-name': string;
 };
 
 const schema = Yup.object({
@@ -15,10 +16,18 @@ const schema = Yup.object({
   message: Yup.string().required(),
 }).required();
 
+function encode(data: FormData) {
+  return Object.keys(data)
+    .map((key) => encodeURIComponent(key) + '=' + encodeURIComponent(data[key as keyof typeof data]))
+    .join('&');
+}
+
 const ContactForm = () => {
   const {
     register,
     handleSubmit,
+    reset,
+    getValues,
     formState: { errors },
   } = useForm<FormData>({
     defaultValues: {
@@ -28,7 +37,25 @@ const ContactForm = () => {
     },
     resolver: yupResolver(schema),
   });
-  const onSubmit = handleSubmit((data) => console.log(data));
+
+  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    const values = getValues();
+    fetch('/', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: encode({
+        ...values,
+        'form-name': 'contact-form',
+      }),
+    })
+      .then((response) => {
+        reset();
+        console.log(response);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   return (
     <form onSubmit={onSubmit} name="contact-form" action="/success" method="POST" data-netlify="true">
