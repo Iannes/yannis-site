@@ -122,7 +122,7 @@ const ContactForm = () => {
       </div>
       {success && (
         <div className="text-green-600 block mt-1">
-          Thank you for your message! I will get back to you within the next 24 hours.
+          Thank you for your message&#x21; I will get back to you within the next 24 hours.
         </div>
       )}
       {formSubmissionError && <div className="text-red-600 block mt-1">Form was not sent. Please try again :/</div>}
