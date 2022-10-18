@@ -1,65 +1,16 @@
 import * as React from 'react';
-import * as Yup from 'yup';
-import { useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
-
-type FormData = {
-  name: string;
-  email: string;
-  message: string;
-  'form-name': string;
-};
-
-const schema = Yup.object({
-  name: Yup.string().required(),
-  email: Yup.string().required(),
-  message: Yup.string().required(),
-}).required();
-
-function encode(data: FormData) {
-  return Object.keys(data)
-    .map((key) => encodeURIComponent(key) + '=' + encodeURIComponent(data[key as keyof typeof data]))
-    .join('&');
-}
+import { usePostFormData, FormData } from '../../../../hooks/usePostFormData';
 
 const ContactForm = () => {
-  const [success, setSuccess] = React.useState(false);
-  const [formSubmissionError, setFormSubmissionError] = React.useState(false);
-  const {
-    register,
-    handleSubmit,
-    reset,
-    getValues,
-    formState: { errors },
-  } = useForm<FormData>({
-    defaultValues: {
-      name: '',
-      email: '',
-      message: '',
-    },
-    resolver: yupResolver(schema),
-  });
+  const [formValues, setFormValues] = React.useState<FormData | undefined>(undefined);
+  const { success, formSubmissionError, errors, register, handleSubmit, getValues } = usePostFormData(formValues);
 
   const onSubmit = () => {
     const values = getValues();
-    fetch('/', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: encode({
-        ...values,
-        'form-name': 'contact-form',
-      }),
-    })
-      .then((response) => {
-        reset();
-        setSuccess(true);
-        return;
-      })
-      .catch((error) => {
-        console.log(error);
-        setFormSubmissionError(true);
-        return;
-      });
+    if (values) {
+      setFormValues(values);
+    }
+    return;
   };
 
   return (
