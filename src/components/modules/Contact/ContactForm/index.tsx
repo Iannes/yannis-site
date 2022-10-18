@@ -38,7 +38,7 @@ const ContactForm = () => {
     resolver: yupResolver(schema),
   });
 
-  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const onSubmit = () => {
     const values = getValues();
     fetch('/', {
       method: 'POST',
@@ -58,7 +58,7 @@ const ContactForm = () => {
   };
 
   return (
-    <form onSubmit={onSubmit} name="contact-form" action="/success" method="POST" data-netlify="true">
+    <form onSubmit={handleSubmit(onSubmit)} name="contact-form" action="/success" method="POST" data-netlify="true">
       <input type="hidden" name="form-name" value="contact-form" />
       <div className="relative mb-4">
         {/* <label htmlFor="name">Your Name:</label> <br /> */}
