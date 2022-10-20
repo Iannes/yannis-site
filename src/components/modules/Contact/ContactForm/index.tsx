@@ -3,7 +3,7 @@ import * as Yup from 'yup';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 
-type FormData = {
+export type FormData = {
   name: string;
   email: string;
   message: string;
