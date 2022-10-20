@@ -1,5 +1,5 @@
 import Image from 'next/future/image';
-import ContactForm from './ContactForm';
+import ContactForm from 'components/modules/Contact/ContactForm';
 
 const Contact = () => (
   <div className="container py-16 flex items-start justify-between flex-col lg:flex-row" id="contact">

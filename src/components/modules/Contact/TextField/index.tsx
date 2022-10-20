@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { FormData } from '../ContactForm';
+import { FormData } from 'components/modules/Contact/ContactForm';
 import { FieldErrorsImpl, UseFormRegister } from 'react-hook-form';
 
 type Props = {
