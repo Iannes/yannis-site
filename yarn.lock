@@ -905,7 +905,7 @@
   dependencies:
     "@types/node" "*"
 
-"@types/hast@^2.0.0":
+"@types/hast@*", "@types/hast@^2.0.0":
   version "2.3.4"
   resolved "https://registry.yarnpkg.com/@types/hast/-/hast-2.3.4.tgz#8aa5ef92c117d20d974a82bdfb6a648b08c0bafc"
   integrity sha512-wLEm0QvaoawEDoTRwzTXp4b4jpwiJDvR5KMnFnVodm3scufTlBOWRD6N1OBf9TZMhjlNsSfcO5V+7AF4+Vy+9g==
@@ -962,6 +962,14 @@
   version "4.14.186"
   resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.14.186.tgz#862e5514dd7bd66ada6c70ee5fce844b06c8ee97"
   integrity sha512-eHcVlLXP0c2FlMPm56ITode2AgLMSa6aJ05JTTbYbI+7EMkCEE5qk2E41d5g2lCVTqRe0GnnRFurmlCsDODrPw==
+
+"@types/mapbox__rehype-prism@^0.8.0":
+  version "0.8.0"
+  resolved "https://registry.yarnpkg.com/@types/mapbox__rehype-prism/-/mapbox__rehype-prism-0.8.0.tgz#869640d87829a979b66a4c394713ed9ec9981687"
+  integrity sha512-C3Bucs6nlHJg0FKhKsN6cx3Mklh1Ah9trAl6VPH0PuSUH4QtOW4H1eF/70zKn3RdEen4nZ9D5wLL0O/eLSQ+zg==
+  dependencies:
+    "@types/hast" "*"
+    unified "^10.0.0"
 
 "@types/mdast@^3.0.0":
   version "3.0.10"
