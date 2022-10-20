@@ -1,9 +1,9 @@
 import * as React from 'react';
-import { FormData } from 'components/modules/Contact/ContactForm';
-import { FieldErrorsImpl, UseFormRegister } from 'react-hook-form';
+import { FieldErrorsImpl, UseFormRegister, FieldValues } from 'react-hook-form';
+import ErrorMessage from 'components/modules/ErrorMessage';
 
 type Props = {
-  register: UseFormRegister<FormData>;
+  register: UseFormRegister<FieldValues>;
   errors: Partial<
     FieldErrorsImpl<{
       name: string;
@@ -14,37 +14,32 @@ type Props = {
   >;
   options: TextFieldOptions;
   placeholder: string;
-  errorMessage: string;
 };
 
 export type TextFieldOptions = {
   label: 'name' | 'email' | 'message';
-  labeltext: string;
+  labelText: string;
 };
 
-const TextField: React.FC<Props> = ({ register, errors, options, placeholder, errorMessage }) => {
-  const { label, labeltext } = options;
+const TextField: React.FC<Props> = ({ register, errors, options, placeholder }) => {
+  const { label, labelText } = options;
+  const ariaLabelledBy = `${label}-label`;
   return (
     <div className="relative mb-4">
-      <label id={`${label}-label`} className="invisible" htmlFor={label as unknown as string}>
-        {labeltext}
-      </label>{' '}
-      <br />
+      <label id={ariaLabelledBy} className="invisible" htmlFor={label as unknown as string}>
+        {labelText}
+      </label>
       <input
-        aria-labelledby={`${label}-label`}
-        aria-invalid={errors[label] ? 'true' : 'false'}
         {...register(label)}
+        aria-labelledby={ariaLabelledBy}
+        aria-invalid={errors[label] ? 'true' : 'false'}
         type={label}
         name={label}
         id={label}
         className="input"
         placeholder={placeholder}
       />
-      {errors[label]?.type === 'required' && (
-        <div className="text-red-600 block mt-1" role="alert">
-          {errorMessage}
-        </div>
-      )}
+      <ErrorMessage errors={errors} label={label} />
     </div>
   );
 };

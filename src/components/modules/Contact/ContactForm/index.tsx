@@ -2,6 +2,7 @@ import * as React from 'react';
 import * as Yup from 'yup';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
+import TextField from 'components/modules/Contact/TextField';
 
 export type FormData = {
   name: string;
@@ -66,38 +67,20 @@ const ContactForm = () => {
     <form onSubmit={handleSubmit(onSubmit)} name="contact-form" action="/success" method="POST" data-netlify="true">
       <input type="hidden" name="form-name" value="contact-form" />
       <div className="relative mb-4">
-        {/* <label htmlFor="name">Your Name:</label> <br /> */}
-        <input
-          aria-invalid={errors.name ? 'true' : 'false'}
-          {...register('name')}
-          type="text"
-          name="name"
-          id="name"
-          className="input"
+        <TextField
+          register={register as any}
+          errors={errors}
+          options={{ label: 'name', labelText: 'Your name' }}
           placeholder="Full name*"
         />
-        {errors.name?.type === 'required' && (
-          <div className="text-red-600 block mt-1" role="alert">
-            Name is required
-          </div>
-        )}
       </div>
       <div className="relative mb-4">
-        {/* <label htmlFor="email">Your Email:</label> <br /> */}
-        <input
-          aria-invalid={errors.email ? 'true' : 'false'}
-          {...register('email')}
-          type="email"
-          name="email"
-          id="email"
-          className="input"
+        <TextField
+          register={register as any}
+          errors={errors}
+          options={{ label: 'email', labelText: 'Your email' }}
           placeholder="Email*"
         />
-        {errors.email?.type === 'required' && (
-          <div className="text-red-600 block mt-1" role="alert">
-            Email is required
-          </div>
-        )}
       </div>
       <div className="relative mb-4">
         {/* <label htmlFor="message">Message</label> <br /> */}
