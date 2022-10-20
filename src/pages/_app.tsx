@@ -6,11 +6,13 @@ import { DefaultSeo } from 'next-seo';
 import { ThemeProvider } from 'next-themes';
 import config from 'data/config';
 import SEO from 'data/next-seo.config';
+import { useHasMounted } from 'hooks/useHasMounted';
 import 'components/ui/fonts.css';
 import 'components/ui/globals.css';
 
 const MyApp = ({ Component, pageProps, err }: AppProps & { err: any }) => {
   const router = useRouter();
+  const hasMounted = useHasMounted();
 
   useEffect(() => {
     const handleRouteChange = (url: string) => {
@@ -24,6 +26,8 @@ const MyApp = ({ Component, pageProps, err }: AppProps & { err: any }) => {
       router.events.off('routeChangeComplete', handleRouteChange);
     };
   }, [router.events]);
+
+  if (!hasMounted) return null;
 
   return (
     <>
@@ -53,7 +57,7 @@ const MyApp = ({ Component, pageProps, err }: AppProps & { err: any }) => {
               property: 'twitter:image',
               content: `${
                 process.env.NODE_ENV !== 'development' ? config.NEXT_PUBLIC_PORTFOLIO_URL : ''
-              }/twitter-cover.png`,
+              }/thumbnail.png`,
             },
             {
               property: 'og:type',
