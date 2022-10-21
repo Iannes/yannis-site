@@ -17,10 +17,9 @@ type PostPageProps = {
   frontMatter: any;
   prevPost: any;
   nextPost: any;
-  globalData: any;
 };
 
-const PostPage: React.FC<PostPageProps> = ({ source, frontMatter, prevPost, nextPost, globalData }) => {
+const PostPage: React.FC<PostPageProps> = ({ source, frontMatter, prevPost, nextPost }) => {
   return (
     <Layout>
       <article className="px-6 md:px-0">
