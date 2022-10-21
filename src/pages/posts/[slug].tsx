@@ -23,8 +23,6 @@ type PostPageProps = {
 const PostPage: React.FC<PostPageProps> = ({ source, frontMatter, prevPost, nextPost, globalData }) => {
   return (
     <Layout>
-      {/* <SEO title={`${frontMatter.title} - Yannis Spyrou Blog`} description={frontMatter.description} /> */}
-      {/* <Header name={globalData.name} /> */}
       <article className="px-6 md:px-0">
         <header>
           <h1 className="text-3xl md:text-5xl dark:text-white text-center mb-12">{frontMatter.title}</h1>
