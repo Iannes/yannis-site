@@ -22,7 +22,7 @@ type PostPageProps = {
 const PostPage: React.FC<PostPageProps> = ({ source, frontMatter, prevPost, nextPost }) => {
   return (
     <Layout>
-      <article className="px-6 md:px-0">
+      <article className="px-12">
         <header>
           <h1 className="text-3xl md:text-5xl dark:text-white text-center mb-12">{frontMatter.title}</h1>
           {frontMatter.description && <p className="text-xl mb-4">{frontMatter.description}</p>}
@@ -32,7 +32,7 @@ const PostPage: React.FC<PostPageProps> = ({ source, frontMatter, prevPost, next
             <MDXRemote {...source} components={components} />
           </article>
         </main>
-        <div className="grid md:grid-cols-2 lg:-mx-24 mt-12">
+        <div className="grid md:grid-cols-2 lg:-mx-2 mt-12">
           {prevPost && (
             <Link href={`/posts/${prevPost.slug}`}>
               <a className="py-8 px-10 text-center md:text-right first:rounded-t-lg md:first:rounded-tr-none md:first:rounded-l-lg last:rounded-r-lg first last:rounded-b-lg backdrop-blur-lg bg-white dark:bg-black dark:bg-opacity-30 bg-opacity-10 hover:bg-opacity-20 dark:hover:bg-opacity-50 transition border border-gray-800 dark:border-white border-opacity-10 dark:border-opacity-10 last:border-t md:border-r-0 md:last:border-r md:last:rounded-r-none flex flex-col">
@@ -57,8 +57,7 @@ const PostPage: React.FC<PostPageProps> = ({ source, frontMatter, prevPost, next
   );
 };
 
-export const getStaticProps = async ({ params }: { params: any }) => {
-  console.log(params);
+export const getStaticProps = async ({ params }: { params: { slug: string } }) => {
   const { mdxSource, data } = await getPostBySlug(params.slug);
   const prevPost = getPreviousPostBySlug(params.slug);
   const nextPost = getNextPostBySlug(params.slug);
