@@ -4,6 +4,7 @@ import matter from 'gray-matter';
 import { serialize } from 'next-mdx-remote/serialize';
 import rehypePrism from '@mapbox/rehype-prism';
 import remarkGfm from 'remark-gfm';
+import { BlogPost } from 'pages/blog';
 
 // POSTS_PATH is useful when you want to get the path to a specific file
 export const POSTS_PATH = path.join(process.cwd(), 'posts');
@@ -14,8 +15,8 @@ export const postFilePaths = fs
   // Only include md(x) files
   .filter((path) => /\.mdx?$/.test(path));
 
-export const sortPostsByDate = (posts: any) => {
-  return posts.sort((a: any, b: any) => {
+export const sortPostsByDate = (posts: BlogPost[]) => {
+  return posts.sort((a: BlogPost, b: BlogPost) => {
     const aDate = new Date(a.data.date) as any;
     const bDate = new Date(b.data.date)as any;
     return bDate - aDate;
@@ -39,7 +40,7 @@ export const getPosts = () => {
   return posts;
 };
 
-export const getPostBySlug = async (slug) => {
+export const getPostBySlug = async (slug: string) => {
   const postFilePath = path.join(POSTS_PATH, `${slug}.mdx`);
   const source = fs.readFileSync(postFilePath);
 
@@ -57,7 +58,7 @@ export const getPostBySlug = async (slug) => {
   return { mdxSource, data, postFilePath };
 };
 
-export const getNextPostBySlug = (slug) => {
+export const getNextPostBySlug = (slug: string) => {
   const posts = getPosts();
   const currentFileName = `${slug}.mdx`;
   const currentPost = posts.find((post) => post.filePath === currentFileName);
