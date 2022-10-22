@@ -1,0 +1,161 @@
+---
+date: '2019-08-12'
+title: 'Get started with AWS Amplify and React'
+imagePath: '/assets/postsImages/2019-08-14.jpg'
+categories:
+  - Serverless
+  - React
+  - GraphQL
+---
+
+This post is a quick guide on how to install and configure a serverless web app on AWS using AWS Amplify and AppSync
+for the backend and Create React App for the frontend.
+
+AWS Amplify is a JavaScript library for frontend and mobile developers building cloud-enabled applications.
+
+AWS AppSync is a fully managed GraphQL service with real-time data synchronisation and offline programming features.
+
+In this first post, you will learn how to:
+
+- Install &amp; configure the Amplify CLI from your command line
+
+- Initialise an Amplify project with a React app
+
+### Prerequisites
+
+- Mac or Win10 local development environment node version 10.x or greater
+
+- `npm` version 5.x or greater (comes with npx) or `yarn`
+
+- AWS Account with appropriate permissions to create the related resources
+
+### Amplify CLI &amp; React app installation
+
+To install AWS Amplify CLI run the below command:
+
+```shell
+$ npm install -g @aws-amplify/cli
+```
+
+Next step is scaffolding our React app.
+
+```bash
+$ npx create-react-app mygreatapp
+
+$ cd mygreatapp
+
+$ npm install -g @aws-amplify
+
+```
+
+We will also need to install React-specific Amplify and AppSync components, by running the following command:
+
+```shell
+$ npm install aws-amplify aws-amplify-react aws-appsync aws-appsync-react
+
+or
+
+
+$ yarn add aws-amplify aws-amplify-react aws-appsync aws-appsync-react
+```
+
+Next command is a one-time setup step.
+Going forward on new projects, we won't have to configure this again.
+
+```shell
+$ amplify configure
+```
+
+The amplify configure step helps you with the following:
+
+- Signing up and signing in into AWS
+
+- Setting up an IAM user with the appropriate policies for the CLI to deploy AWS resources on our behalf.
+
+- Creating an AWS Profile on your local system with reference to the accessKey and secretKey tied to the IAM user created in the above step.
+
+This AWS Profile could be given a custom name and can be used for initialising any number of projects moving forward.
+
+Essentially the AWS profile defines which AWS account and region the AWS resources would be deployed to.
+
+Once we run `amplify configure`, the CLI will take us through the initial configuration.
+
+```shell
+- ? region: `<your-region-of-choice>`
+
+- ? user name: `<your.email>@example.com`
+
+- ? accessKeyId: `<'Access key ID' from credentials.csv>`
+
+- ? secretAccessKey: `<'Secret access key' from credentials.csv>`
+
+- ? Profile Name: `default`
+```
+
+Before initialising our Amplify project,we need to make sure we are in the right directory in our React app.
+
+In my case all I need to do is:
+
+```shell
+$ cd mygreatapp
+```
+
+Next we'll need to run the *amplify init* command.
+
+This command will run you through the init process.
+Go ahead and accept the defaults and use ‘dev’ or `test` as environment name.
+
+```shell
+$ amplify init
+```
+
+This setup helps us with the following:
+
+- Selecting our AWS Profile which would be used to provision cloud resources for your app
+
+- Selecting the frontend framework for our app and corresponding frontend framework related configurations.
+
+```shell
+   - ? Do you want to use an existing environment? Yes
+
+   - ? Choose the environment you would like to use: dev
+
+   - ? Choose your default editor: Your preferred editor
+
+   - ? Do you want to use an AWS profile? Yes
+
+   - ? Please choose the profile you want: default
+```
+
+This will automatically generate a `aws-exports.js` file under your `src` directory.
+This file holds all security credentials for your API so you want to keep this safe.
+
+On your terminal, run the following command:
+
+```shell
+$ echo "aws-exports.js" >> .gitignore
+```
+
+The above command will create a `.gitignore` file and append the `aws-exports.js` line to
+it so it doesn't accidentally get commited to your repo.
+
+To verify that the CLI is set up for your React app, run the following command:
+
+```shell
+$ amplify status
+```
+
+If all went well, the Amplify CLI should output the following status table with no resources listed:
+
+```shell
+| Category | Resource Name | | Operation  | Provider Plugin |
+| ---------| ------------- | | ---------- | --------------- |
+```
+
+🎉 That was it! You have successfully initialised a cloud project using Amplify.
+
+Stay tuned for the next part of this series that will take you through the provisioning of the remote servers.
+
+Do you think something is missing from this article ?
+
+Let me know on [Twitter](https://twitter.com/SpyrouYannis).
