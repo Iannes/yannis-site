@@ -25,6 +25,9 @@ module.exports = {
         },
         center: true,
       },
+			translate: {
+        'minus-6': '-1.5rem',
+       },
     },
   },
   plugins: [],
