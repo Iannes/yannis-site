@@ -89,7 +89,7 @@ const ContactForm = () => {
           {...register('message')}
           name="message"
           id="message"
-          className="input"
+          className="input dark:bg-gray-200"
           placeholder="Message*"
         ></textarea>
         {errors.message?.type === 'required' && (
@@ -99,7 +99,7 @@ const ContactForm = () => {
         )}
       </div>
       <div className="text-left">
-        <button type="submit" className="button button-secondary">
+        <button type="submit" className="button bg-green-900 hover:bg-green-600 duration-300 ease-in-out transition">
           Submit
         </button>
       </div>

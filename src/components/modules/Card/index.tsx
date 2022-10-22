@@ -6,9 +6,9 @@ const POSTS_PATH = '/posts';
 export const getSlug = (filePath: string) => filePath.replace(/\.mdx?$/, '');
 
 const CATEGORY_COLORS = {
-  react: 'bg-indigo-100',
-  serverless: 'bg-green-200',
-  graphql: 'bg-purple-100',
+  react: 'bg-blue-300',
+  serverless: 'bg-green-300',
+  graphql: 'bg-purple-300',
 };
 
 const Card = ({ data }: any) => {
@@ -16,7 +16,7 @@ const Card = ({ data }: any) => {
 
   return (
     <Link href={`${POSTS_PATH}/${slug}`} passHref>
-      <a className="rounded-lg hover:translate-y-minus-6 transition duration-700 ease-in-out hover:shadow-2xl transform-gpu bg-white shadow-md dark:bg-zinc-200 rounded-sm p-4 h-full overflow-hidden flex flex-col justify-between">
+      <a className="mb-4 rounded-lg hover:translate-y-minus-2 transition duration-700 ease-in-out hover:shadow-2xl transform-gpu bg-white shadow-md dark:bg-grey-200 rounded-sm p-4 h-full overflow-hidden flex flex-col justify-between">
         <div>
           <h3 className="text-black font-semibold text-xl mb-4">{data.data.title}</h3>
           <p className="text-base text-md text-gray-700 mb-6 line-clamp-2 max-w-sm">{data.content}</p>

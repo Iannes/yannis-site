@@ -19,7 +19,7 @@ const Skills = () => (
           working with React, TypeScript, Gatsby &amp; Next.
         </p>
         <Link href="#contact" passHref>
-          <a className="button button-primary">Contact</a>
+          <a className="hover:bg-green-500 duration-300 ease-in-out transition button bg-green-400">Contact</a>
         </Link>
       </div>
     </div>

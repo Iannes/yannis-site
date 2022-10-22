@@ -36,7 +36,7 @@ const TextField: React.FC<Props> = ({ register, errors, options, placeholder }) 
         type={label}
         name={label}
         id={label}
-        className="input"
+        className="input dark:bg-gray-200"
         placeholder={placeholder}
       />
       <ErrorMessage errors={errors} label={label} />
