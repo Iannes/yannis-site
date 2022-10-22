@@ -20,8 +20,6 @@ const HomePage: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({ po
   );
 };
 
-const getSlug = (post: BlogPost) => post.filePath.replace(/\.mdx?$/, '');
-
 export const getStaticProps = async () => {
   const posts = getPosts();
 
