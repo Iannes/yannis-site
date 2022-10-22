@@ -24,6 +24,9 @@ const NavbarLinks = ({ desktop }: NavbarLinksProps) => {
       <Link href="/#about" scroll={false}>
         <a className="text-black mb-4 lg:mb-0 mr-0 lg:mr-4 dark:text-white lg:dark:text-black">About</a>
       </Link>
+      <Link href="/blog" scroll={false}>
+        <a className="text-black mb-4 lg:mb-0 mr-0 lg:mr-4 dark:text-white lg:dark:text-black">Blog</a>
+      </Link>
       <Link href="/#contact" scroll={false}>
         <a className="text-black mb-4 lg:mb-0 mr-0 lg:mr-4 dark:text-white lg:dark:text-black">Contact</a>
       </Link>

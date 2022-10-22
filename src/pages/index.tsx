@@ -13,7 +13,7 @@ const HomePage: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({ po
     <Layout>
       <SEO />
       <Intro />
-      <BlogPosts data={posts} />
+      <BlogPosts data={posts as BlogPost[]} />
       <Skills />
       <Contact />
     </Layout>

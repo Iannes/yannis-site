@@ -35,7 +35,7 @@ export const getPosts = () => {
     };
   });
 
-  posts = sortPostsByDate(posts);
+  posts = sortPostsByDate(posts as BlogPost[]);
 
   return posts;
 };
@@ -62,7 +62,7 @@ export const getNextPostBySlug = (slug: string) => {
   const posts = getPosts();
   const currentFileName = `${slug}.mdx`;
   const currentPost = posts.find((post) => post.filePath === currentFileName);
-  const currentPostIndex = posts.indexOf(currentPost);
+  const currentPostIndex = typeof currentPost !== 'undefined' ? posts.indexOf(currentPost): 0;
 
   const post = posts[currentPostIndex - 1];
   // no prev post found
@@ -80,7 +80,7 @@ export const getPreviousPostBySlug = (slug: string) => {
   const posts = getPosts();
   const currentFileName = `${slug}.mdx`;
   const currentPost = posts.find((post) => post.filePath === currentFileName);
-  const currentPostIndex = posts.indexOf(currentPost);
+  const currentPostIndex = typeof currentPost !== 'undefined' ? posts.indexOf(currentPost): 0;
 
   const post = posts[currentPostIndex + 1];
   // no prev post found
