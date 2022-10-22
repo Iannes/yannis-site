@@ -83,15 +83,17 @@ const ContactForm = () => {
         />
       </div>
       <div className="relative mb-4">
-        {/* <label htmlFor="message">Message</label> <br /> */}
+        <label className="invisible" htmlFor="message">
+          Message
+        </label>
         <textarea
           aria-invalid={errors.message ? 'true' : 'false'}
           {...register('message')}
           name="message"
           id="message"
-          className="input dark:bg-gray-200"
+          className="input dark:bg-gray-200 dark:caret-gray-900 dark:text-gray-900 autofill:bg-yellow-200"
           placeholder="Message*"
-        ></textarea>
+        />
         {errors.message?.type === 'required' && (
           <div className="text-red-600 block mt-1" role="alert">
             Message is required
