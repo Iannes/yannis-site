@@ -74,7 +74,12 @@ export default function ListLayout({ posts, initialDisplayPosts = [], pagination
                         ))}
                       </div>
                     </div>
-                    <div className="prose max-w-none text-gray-500 dark:text-gray-400 line-clamp-3">{content}</div>
+                    <div className="prose max-w-none text-gray-500 dark:text-gray-400 line-clamp-2">{content}</div>
+                    <div className="text-teal-500 hover:text-teal-600 dark:hover:text-teal-400 leading-6">
+                      <Link href={`/posts/${slug}`} aria-label={`Read "${title}"`}>
+                        Read more &rarr;
+                      </Link>
+                    </div>
                   </div>
                 </article>
               </li>
