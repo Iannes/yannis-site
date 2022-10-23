@@ -3,9 +3,10 @@ date: '2019-10-14'
 title: 'Connect to the AppSync API with React'
 imagePath: '/assets/postsImages/fabio-unsplash.jpg'
 categories:
-  - Serverless
-  - React
   - GraphQL
+  - Serverless
+  - AppSync
+  - React
 ---
 
 This is the third post in a multi-part series that shows you how to install
@@ -15,10 +16,7 @@ for the backend and Create React App for the frontend.
 ### Configuring your React app:
 
 To connect to the new API, we first need to configure our React project with our Amplify project
-credentials. In your `src` folder there is a file called `aws-exports.js`.
-This file holds all of the information our local project needs to know about our cloud resources.
-
-As I mentioned in my previous post, this file should be added to a `.gitignore` file, so if you haven't done so already,
+credentials. In your `src` folder there is a file called `aws-exports.js`. This file holds all of the information our local project needs to know about our cloud resources.As I mentioned in my previous [post](https://www.yannisspyrou.com/posts/get-started-with-aws-amplify-and-react), this file should be added to a `.gitignore` file, so if you haven't done so already,
 go ahead and run the following command from your terminal:
 
 ```shell
@@ -35,9 +33,8 @@ import config from 'aws-exports';
 Amplify.configure(config);
 ```
 
-The last line tells Amplify to use the `aws-exports.js` file to connect to the correct backend API.
-
-You'll notice however that we have some imports that have to do with authentication.
+The last line tells Amplify to use the `aws-exports.js` file to connect to the correct backend API. You'll notice however
+that we have some imports that have to do with authentication.
 
 ```jsx
 import { withAuthenticator } from 'aws-amplify-react';
@@ -78,15 +75,16 @@ What we'll need to do now is change that last line and paste the line below:
 export default withAuthenticator(App, true);
 ```
 
-To test if everything works as intended, we can run `yarn start` or `npm start`
-and see if we are presented with the default AWS login UI.
+To test if everything works as intended, we can run `yarn start` or `npm start` and see if we are presented with the default
+AWS login UI.
 
-<img src="/assets/postsImages/amplify-login.png" />
+<img
+  src="/assets/postsImages/amplify-login.png"
+  alt="Amplify login component with a username and a password input and a sign in button"
+/>
 
 In order for us to use our app we now have to register a new user to our API,
-by clicking the 'Create Account' link at the bottom.
-
-Once we're done registering, AWS will send a confirmation link to the email address we registered.
+by clicking the 'Create Account' link at the bottom. Once we're done registering, AWS will send a confirmation link to the email address we registered.
 After that, we are going to be able to login and see the React app in all its glory!
 
 ### Setting up Apollo Client for real-time data
@@ -94,9 +92,8 @@ After that, we are going to be able to login and see the React app in all its gl
 One of AppSync's greatest features is its ability for real-time data that is powered by GraphQL subscriptions.
 Instead of implementing this with WebSockets like Apollo Client does, AppSync’s subscriptions use MQTT as the transport layer.
 
-If you want to take advantage of this excellent feature all you need to do is configure your Apollo client.
-
-First step is to create an `ApolloClient.js` file within your `src/graphql` folder that will have the contents below:
+If you want to take advantage of this excellent feature all you need to do is configure your Apollo client. First step is
+to create an `ApolloClient.js` file within your `src/graphql` folder that will have the contents below:
 
 ```jsx
 // src/graphql/ApolloClient.js
@@ -120,9 +117,7 @@ const client = new AWSAppSyncClient({
 export default client;
 ```
 
-For more details on the configuration of the AWSAppSyncClient head over to the Amplify's [configuration options section](https://aws-amplify.github.io/docs/js/api#configuration-options).
-
-After you have saved this file, you need to import the `client` to the `App.js` file,
+For more details on the configuration of the AWSAppSyncClient head over to the Amplify's [configuration options section](https://aws-amplify.github.io/docs/js/api#configuration-options). After you have saved this file, you need to import the `client` to the `App.js` file,
 so we can use this in our Apollo Provider.
 
 ```jsx

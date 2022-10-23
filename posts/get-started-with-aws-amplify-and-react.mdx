@@ -3,25 +3,26 @@ date: '2019-08-12'
 title: 'Get started with AWS Amplify and React'
 imagePath: '/assets/postsImages/2019-08-14.jpg'
 categories:
+  - Amplify
   - Serverless
   - React
   - GraphQL
+  - AppSync
 ---
 
 This post is a quick guide on how to install and configure a serverless web app on AWS using AWS Amplify and AppSync
-for the backend and Create React App for the frontend.
-
-AWS Amplify is a JavaScript library for frontend and mobile developers building cloud-enabled applications.
-
+for the backend and Create React App for the frontend. AWS Amplify is a JavaScript library for frontend and mobile developers building cloud-enabled applications.
 AWS AppSync is a fully managed GraphQL service with real-time data synchronisation and offline programming features.
 
+<br />
 In this first post, you will learn how to:
+<br />
 
 - Install &amp; configure the Amplify CLI from your command line
 
 - Initialise an Amplify project with a React app
 
-### Prerequisites
+## Prerequisites
 
 - Mac or Win10 local development environment node version 10.x or greater
 
@@ -58,6 +59,8 @@ or
 
 $ yarn add aws-amplify aws-amplify-react aws-appsync aws-appsync-react
 ```
+
+### Amplify configure
 
 Next command is a one-time setup step.
 Going forward on new projects, we won't have to configure this again.
@@ -100,6 +103,8 @@ In my case all I need to do is:
 $ cd mygreatapp
 ```
 
+### Amplify init
+
 Next we'll need to run the *amplify init* command.
 
 This command will run you through the init process.
@@ -138,6 +143,8 @@ $ echo "aws-exports.js" >> .gitignore
 
 The above command will create a `.gitignore` file and append the `aws-exports.js` line to
 it so it doesn't accidentally get commited to your repo.
+
+### Amplify status
 
 To verify that the CLI is set up for your React app, run the following command:
 
