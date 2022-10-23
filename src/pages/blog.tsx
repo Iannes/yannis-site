@@ -3,6 +3,7 @@ import Layout from 'components/ui/Layout';
 import SEO from 'components/SEO';
 import Header from 'components/ui/theme/Header';
 import { getPosts } from 'utils/mdx-utils';
+import ListLayout from 'components/ui/ListLayout';
 
 export const sortPostsByDate = (posts: BlogPost[]) => {
   return posts.sort((a: BlogPost, b: BlogPost) => {
@@ -26,15 +27,18 @@ export type FrontMatterData = {
 
 type BlogProps = {
   posts: BlogPost[];
+  initialDisplayPosts: [];
+  pagination: any;
 };
 
-const Blog: React.FC<BlogProps> = ({ posts }) => {
+const Blog: React.FC<BlogProps> = ({ posts, initialDisplayPosts, pagination }) => {
   return (
     <>
-      <Header />
+      <Header page="blog" />
       <Layout>
-        <SEO title="Blog: Yannis Spyrou's blog posts. " location="/blog" />
-        <div className="flex flex-col max-w-lg mx-auto px-6">
+        <SEO title="Blog: Yannis Spyrou " location="/blog" />
+        <ListLayout posts={posts} initialDisplayPosts={initialDisplayPosts} pagination={pagination} title="All Posts" />
+        {/* <div className="flex flex-col max-w-lg mx-auto px-6">
           <h1 className="mt-5 text-3xl md:text-6xl uppercase mx-auto mb-4 dark:text-white">Blog</h1>
           {posts.map((post: BlogPost) => {
             const slug = getSlug(post);
@@ -59,7 +63,7 @@ const Blog: React.FC<BlogProps> = ({ posts }) => {
               </div>
             );
           })}
-        </div>
+        </div> */}
       </Layout>
     </>
   );
@@ -67,12 +71,21 @@ const Blog: React.FC<BlogProps> = ({ posts }) => {
 
 const getSlug = (post: BlogPost) => post.filePath.replace(/\.mdx?$/, '');
 
+export const POSTS_PER_PAGE = 5;
+
 export const getStaticProps = async () => {
   const posts = getPosts();
+  const initialDisplayPosts = posts.slice(0, POSTS_PER_PAGE);
+  const pagination = {
+    currentPage: 1,
+    totalPages: Math.ceil(posts.length / POSTS_PER_PAGE),
+  };
 
   return {
     props: {
       posts,
+      initialDisplayPosts,
+      pagination,
     },
   };
 };

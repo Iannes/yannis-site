@@ -22,9 +22,9 @@ type PostPageProps = {
 
 const PostPage: React.FC<PostPageProps> = ({ source, frontMatter, prevPost, nextPost }) => {
   return (
-    <div className="bg-[url('/assets/illustrations/overlay.svg')] bg-contain bg-right-top bg-no-repeat pb-16">
-      <Layout>
-        <Header />
+    <Layout>
+      <Header page="blog" />
+      <div className="mx-auto max-w-3xl px-4 sm:px-6 xl:max-w-5xl xl:px-0">
         <article className="px-12">
           <h1 className="text-3xl md:text-5xl dark:text-white text-center mb-12">{frontMatter.title}</h1>
           {frontMatter.description && <p className="text-xl mb-4">{frontMatter.description}</p>}
@@ -56,8 +56,8 @@ const PostPage: React.FC<PostPageProps> = ({ source, frontMatter, prevPost, next
             )}
           </div>
         </article>
-      </Layout>
-    </div>
+      </div>
+    </Layout>
   );
 };
 
