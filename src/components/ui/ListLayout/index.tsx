@@ -44,7 +44,7 @@ export default function ListLayout({ posts, initialDisplayPosts = [], pagination
             </svg>
           </div>
         </div>
-        <ul>
+        <ul className="divide-y divide-gray-200 dark:divide-gray-700">
           {!filteredBlogPosts.length && 'No posts found.'}
           {displayPosts.map((post: BlogPost) => {
             const { content } = post;
@@ -67,7 +67,7 @@ export default function ListLayout({ posts, initialDisplayPosts = [], pagination
                         </Link>
                       </h3>
                       <div className="flex flex-wrap">
-                        {categories.map((category: any) => (
+                        {categories.map((category: string) => (
                           <span key={category} className="mr-3 text-sm font-medium uppercase text-teal-500">
                             {category}
                           </span>
