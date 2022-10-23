@@ -13,7 +13,7 @@ This is the third post in a multi-part series that shows you how to install
 and configure a serverless web app on AWS using AWS Amplify and AppSync
 for the backend and Create React App for the frontend.
 
-### Configuring your React app:
+## Configuring your React app:
 
 To connect to the new API, we first need to configure our React project with our Amplify project
 credentials. In your `src` folder there is a file called `aws-exports.js`. This file holds all of the information our local project needs to know about our cloud resources.As I mentioned in my previous [post](https://www.yannisspyrou.com/posts/get-started-with-aws-amplify-and-react), this file should be added to a `.gitignore` file, so if you haven't done so already,
@@ -40,7 +40,7 @@ that we have some imports that have to do with authentication.
 import { withAuthenticator } from 'aws-amplify-react';
 ```
 
-### withAuthenticator HOC
+## withAuthenticator HOC
 
 `withAuthenticator` is a helper function provided by Amplify so we can use the out-of-the-box solution that
 AWS provides us with for auth services.
@@ -87,7 +87,7 @@ In order for us to use our app we now have to register a new user to our API,
 by clicking the 'Create Account' link at the bottom. Once we're done registering, AWS will send a confirmation link to the email address we registered.
 After that, we are going to be able to login and see the React app in all its glory!
 
-### Setting up Apollo Client for real-time data
+## Setting up Apollo Client for real-time data
 
 One of AppSync's greatest features is its ability for real-time data that is powered by GraphQL subscriptions.
 Instead of implementing this with WebSockets like Apollo Client does, AppSync’s subscriptions use MQTT as the transport layer.
