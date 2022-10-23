@@ -6,11 +6,41 @@ import Link from 'next/link';
 import ArrowIcon from 'components/modules/ArrowIcon';
 import Layout from 'components/ui/Layout';
 import Header from 'components/ui/theme/Header';
+import Image from 'next/image';
+
+const CustomP = ({ children }: { children: any }) => {
+  return <p className="max-w-none text-lg">{children}</p>;
+};
+const CustomH3 = ({ children }: { children: any }) => {
+  return (
+    <h3 tabIndex={0} className="text-xl md:text-3xl dark:text-white text-left pt-4 pb-4">
+      {children}
+    </h3>
+  );
+};
+const CustomTitle = ({ children }: { children: any }) => {
+  return (
+    <h1 tabIndex={0} className="text-3xl md:text-5xl dark:text-white">
+      {children}
+    </h1>
+  );
+};
+const CustomH2 = ({ children }: { children: any }) => {
+  return (
+    <h2 tabIndex={0} className="text-black text-3xl text-bold mt-4 mb-4 typography">
+      {children}
+    </h2>
+  );
+};
 
 const components = {
   a: Link,
   Head,
-  // p: Test,
+  p: CustomP,
+  h1: CustomTitle,
+  h2: CustomH2,
+  h3: CustomH3,
+  img: Image,
 };
 
 type PostPageProps = {
@@ -26,11 +56,11 @@ const PostPage: React.FC<PostPageProps> = ({ source, frontMatter, prevPost, next
       <Header page="blog" />
       <div className="mx-auto max-w-3xl px-4 sm:px-6 xl:max-w-5xl xl:px-0">
         <article className="px-12">
-          <h1 className="text-3xl md:text-5xl dark:text-white text-center mb-12">{frontMatter.title}</h1>
           {frontMatter.description && <p className="text-xl mb-4">{frontMatter.description}</p>}
           <main>
             <div className="container py-16 flex items-center flex-col md:flex-row justify-between">
-              <div className="flex-1 w-full md:w-1/2 mb-8 md:mb-0">
+              <div className="flex-1 w-full md:w-1/2 mb-8 md:mb-0 prose dark:prose-dark">
+                <h1 className="text-2xl md:text-3xl dark:text-white text-left mb-8 lg:mb-12">{frontMatter.title}</h1>
                 <MDXRemote {...source} components={components} />
               </div>
             </div>
