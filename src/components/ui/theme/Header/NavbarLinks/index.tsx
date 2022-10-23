@@ -5,9 +5,15 @@ import ToggleTheme from 'components/ui/theme/Header/ToggleTheme';
 
 type NavbarLinksProps = {
   desktop?: boolean;
+  page?: string;
 };
 
-const NavbarLinks = ({ desktop }: NavbarLinksProps) => {
+const darkThemeStyles = {
+  home: 'text-black mb-4 lg:mb-0 mr-0 lg:mr-4 dark:text-white lg:dark:text-black',
+  blog: 'text-black mb-4 lg:mb-0 mr-0 lg:mr-4 dark:text-white',
+};
+
+const NavbarLinks = ({ desktop, page = 'home' }: NavbarLinksProps) => {
   const [hasMounted, setHasMounted] = useState(false);
 
   useEffect(() => {
@@ -22,15 +28,15 @@ const NavbarLinks = ({ desktop }: NavbarLinksProps) => {
       })}
     >
       <Link href="/#about" scroll={false}>
-        <a className="text-black mb-4 lg:mb-0 mr-0 lg:mr-4 dark:text-white lg:dark:text-black">About</a>
+        <a className={darkThemeStyles[page as keyof typeof darkThemeStyles]}>About</a>
       </Link>
       <Link href="/blog" scroll={false}>
-        <a className="text-black mb-4 lg:mb-0 mr-0 lg:mr-4 dark:text-white lg:dark:text-black">Blog</a>
+        <a className={darkThemeStyles[page as keyof typeof darkThemeStyles]}>Blog</a>
       </Link>
       <Link href="/#contact" scroll={false}>
-        <a className="text-black mb-4 lg:mb-0 mr-0 lg:mr-4 dark:text-white lg:dark:text-black">Contact</a>
+        <a className={darkThemeStyles[page as keyof typeof darkThemeStyles]}>Contact</a>
       </Link>
-      {hasMounted && <ToggleTheme />}
+      {hasMounted && <ToggleTheme page={page} />}
     </div>
   );
 };

@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import cx from 'classnames';
-import Navbar from './Navbar';
+import Navbar, { NavbarProps } from './Navbar';
 import Hamburger from './Hamburger';
 import Sidebar from './Sidebar';
 
-const Header = () => {
+const Header: React.FC<NavbarProps> = ({ page = 'home' }) => {
   const [sidebar, toggle] = useState(false);
 
   return (
@@ -16,7 +16,7 @@ const Header = () => {
         })}
         onClick={() => toggle(!sidebar)}
       />
-      <Navbar />
+      <Navbar page={page} />
       <Hamburger sidebar={sidebar} toggle={toggle} />
       <Sidebar sidebar={sidebar} toggle={() => toggle(!sidebar)} />
     </div>
