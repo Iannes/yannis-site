@@ -27,7 +27,7 @@ const CustomTitle = ({ children }: { children: any }) => {
 };
 const CustomH2 = ({ children }: { children: any }) => {
   return (
-    <h2 tabIndex={0} className="text-black text-3xl text-bold mt-4 mb-4 typography">
+    <h2 tabIndex={0} className="text-black dark:text-white text-3xl text-bold mt-4 mb-4 typography">
       {children}
     </h2>
   );
