@@ -9,6 +9,8 @@ const CATEGORY_COLORS = {
   react: 'bg-blue-300',
   serverless: 'bg-green-300',
   graphql: 'bg-purple-300',
+  appsync: 'bg-pink-300',
+  amplify: 'bg-orange-300',
 };
 
 const Card = ({ data }: any) => {
