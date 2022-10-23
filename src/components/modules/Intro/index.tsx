@@ -4,13 +4,13 @@ import Header from 'components/ui/theme/Header';
 
 const Intro = () => (
   <div className="bg-[url('/assets/illustrations/contact-overlay.svg')] md:bg-[url('/assets/illustrations/overlay.svg')] bg-contain bg-right-top bg-no-repeat pb-16">
-    <Header />
+    <Header page="home" />
     <div className="container py-16 flex items-center flex-col md:flex-row justify-between">
       <div className="flex-1 w-full md:w-1/2 mb-8 md:mb-0">
         <h1 className="mb-8 text-3xl md:text-5xl font-bold text-brand-primary dark:text-white typography">
-          Hi there&#x21;
+          Hello
+          <span className="pl-2 inline-block animate-waving-hand">👋</span>
         </h1>
-        {/* <span className="md:visible sm:invisible">👋</span> */}
         <h2 className="mb-[2.5rem] text-2xl md:text-4xl text-brand-secondary dark:text-slate-200 typography">
           I&apos;m Yannis, a frontend engineer working with React &amp; TypeScript&#x21;
         </h2>
