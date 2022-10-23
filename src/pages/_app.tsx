@@ -9,6 +9,8 @@ import SEO from 'data/next-seo.config';
 import { useHasMounted } from 'hooks/useHasMounted';
 import 'components/ui/fonts.css';
 import 'components/ui/globals.css';
+import 'prismjs/themes/prism-tomorrow.css';
+import '../css/prism.css';
 
 const MyApp = ({ Component, pageProps, err }: AppProps & { err: any }) => {
   const router = useRouter();
