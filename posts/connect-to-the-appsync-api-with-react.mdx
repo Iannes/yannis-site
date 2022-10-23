@@ -79,6 +79,7 @@ To test if everything works as intended, we can run `yarn start` or `npm start` 
 AWS login UI.
 
 <img
+  class="mt-4 mb-4"
   src="/assets/postsImages/amplify-login.png"
   alt="Amplify login component with a username and a password input and a sign in button"
 />
@@ -161,11 +162,13 @@ What happened there, is that we wrapped the `App` component with `Rehydrated` an
 so that we can get advantage of the AWSAppSync Client. It takes a `client` prop
 and this is where we pass on the client we configured earlier in our `ApolloClient.js` file.
 
-Congratulations! You have now successfully connected to the AppSync API from your React app and
-leveraged AppSync's implementation of Apollo Client that enables real-time capabilities in your app!
+## Congratulations!
 
-Stay tuned for the next part of this series that will take you through querying data from our React App using [React Hooks](https://reactjs.org/docs/hooks-intro.html).
+You have now successfully connected to the AppSync API from your React app and leveraged AppSync's implementation of Apollo Client that enables real-time capabilities in your app!Stay tuned for the next part of this series that will take you through querying data from our React App using [React Hooks](https://reactjs.org/docs/hooks-intro.html).
 
-Do you think something is missing from this article ?
-
-Let me know on [Twitter](https://twitter.com/SpyrouYannis).
+<div class="mt-4">
+  <p>Do you think something is missing from this article?</p>
+  <div>
+    Let me know on <a href="https://twitter.com/SpyrouYannis">Twitter</a>.
+  </div>
+</div>
