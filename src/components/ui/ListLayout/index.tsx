@@ -1,17 +1,19 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
 import { formatDate } from 'utils/formatDate';
 import { BlogPost } from 'pages/blog';
 
 export default function ListLayout({ posts, initialDisplayPosts = [], pagination }: any) {
   const [searchValue, setSearchValue] = useState('');
-  const filteredBlogPosts = posts.filter((post: any) => {
-    const searchContent = post.title + post.content;
+  const filteredBlogPosts = posts.filter((post: BlogPost) => {
+    const searchContent = post.data.title;
     return searchContent.toLowerCase().includes(searchValue.toLowerCase());
   });
 
   // If initialDisplayPosts exist, display it if no searchValue is specified
   const displayPosts = initialDisplayPosts.length > 0 && !searchValue ? initialDisplayPosts : filteredBlogPosts;
+
+  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => setSearchValue(e.target.value);
 
   return (
     <div className="mx-auto max-w-3xl px-4 sm:px-6 xl:max-w-5xl xl:px-0">
@@ -24,7 +26,7 @@ export default function ListLayout({ posts, initialDisplayPosts = [], pagination
             <input
               aria-label="Search articles"
               type="text"
-              onChange={(e) => setSearchValue(e.target.value)}
+              onChange={handleSearch}
               placeholder="Search articles"
               className="block w-full rounded-md border border-gray-300 bg-white px-4 py-2 text-gray-900 focus:border-primary-500 focus:ring-primary-500 dark:border-gray-900 dark:bg-gray-800 dark:text-gray-100"
             />
