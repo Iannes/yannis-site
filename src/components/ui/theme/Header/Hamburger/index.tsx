@@ -16,18 +16,18 @@ const Hamburger = ({ sidebar, toggle }: HamburgerProps) => {
       onClick={handleToggle}
     >
       <div
-        className={cx('w-6 h-0.5 mb-1.5 burger-bar-transition bg-brand-primary', {
+        className={cx('w-6 h-0.5 mb-1.5 burger-bar-transition bg-teal-600', {
           'translate-y-2 -rotate-[135deg] dark:bg-white': sidebar,
         })}
       />
       <div
-        className={cx('w-6 h-0.5 mb-1.5 bg-brand-primary burger-bar-transition', {
+        className={cx('w-6 h-0.5 mb-1.5 bg-teal-600 burger-bar-transition', {
           'scale-0': sidebar,
         })}
       />
       <div
-        className={cx('w-6 h-0.5 mb-1.5 bg-brand-primary burger-bar-transition', {
-          'bg-brand-primary dark:bg-white -translate-y-[7px] -rotate-45': sidebar,
+        className={cx('w-6 h-0.5 mb-1.5 bg-teal-600 burger-bar-transition', {
+          'bg-teal-600 dark:bg-white -translate-y-[7px] -rotate-45': sidebar,
         })}
       />
     </button>

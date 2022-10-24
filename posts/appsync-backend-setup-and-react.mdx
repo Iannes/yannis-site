@@ -1,0 +1,121 @@
+---
+date: '2019-09-12'
+title: 'AppSync Backend Setup & React'
+imagePath: '/assets/postsImages/amplify-login.png'
+categories:
+  - AppSync
+  - Serverless
+  - React
+  - GraphQL
+---
+
+In this post we will see how to install
+and configure a serverless web app on AWS using AWS Amplify and AppSync
+for the backend and Create React App for the frontend.
+
+## Add AppSync API and DynamoDB Database:
+
+Add a GraphQL API to your app and automatically provision
+a database with the following command (accepting all defaults is OK):
+
+```shell
+$ amplify add api
+```
+
+This command will run you through the creation of the AWS AppSync GraphQL API.
+
+```shell
+? Please select from one of the below services: GraphQL
+? Provide API name: mygreatapp
+? Choose an authorization type for the API: AMAZON_COGNITO_USER_POOLS
+? Do you have an annotated GraphQL schema?: N
+? Do you want a guided schema creation? Y
+? What best describes your project? One-to-many relationship
+? Do you want to edit the schema now? Y
+```
+
+This will open a GraphQL Schema in your editor.
+
+Since this tutorial is meant to help you with a simple setup,
+we are not going to make any changes to our GraphQL schema for the time being.
+After you have saved the file, head back to your terminal and press Enter to finish the setup.
+
+This is what you should see after finishing the process:
+
+```shell
+GraphQL schema compiled successfully.
+
+Edit your schema at /dev/amplify/backend/api/dev/schema.graphql
+or place .graphql files in a directory at /dev/amplify/backend/api/dev/schema
+Successfully added resource dev locally
+
+```
+
+Now a new folder, named `amplify` should have appeared at the root of your project.
+
+This means that our api is now setup in our computer, but what about the remote server?
+All we need to do, to set this up is run the following command from our terminal:
+
+```shell
+$ amplify push
+```
+
+This command will go ahead and provision the remote server for us.
+The whole process should take roughly 15 minutes, so you have plenty of time for a coffee. ☕☕☕
+
+To verify that the CLI is set up correctly, run the following command:
+
+```shell
+$ amplify status
+```
+
+If all went well, the Amplify CLI should output the following status table with no resources listed:
+
+```shell
+| Category | Resource Name         | Operation  | Provider Plugin   |
+| ---------| --------------------- | ---------- | ---------------   |
+| Auth     | mygreatappac234765    | No Change  | awscloudformation |
+| Api      | mygreatapp            | No Change  | awscloudformation |
+
+```
+
+Under the operation column, you should be able to see that there is no changes.
+That means that we have successfully provisioned our remote server
+and our local and remote environments are in sync!
+
+The Auth column means we can use an Amazon Cognito User Pool to act as the backend
+that users will be able to sign up and sign in. If you want to read more on this,
+have a look at the ‘Authentication’ steps from the [AWS Amplify Authentication guide](https://aws-amplify.github.io/docs/js/authentication).
+
+### Testing our API
+
+Once we've verified our resources have been created,
+we’re ready to create the app & begin interacting with the API.
+Apart from testing our API through the [AppSync dashboard](https://console.aws.amazon.com/appsync/home), we can test it locally as well!
+
+All we need to do is run the following command and a local AppSync mock endpoint will start up:
+
+```shell
+$ amplify mock
+```
+
+The terminal will output a link to an instance of the GraphiQL IDE,
+where you can see the GraphQL docs on any field or type and test your queries and mutations.
+
+For more information on Amplify's local framework testing please visit [this link](https://aws.amazon.com/blogs/mobile/amplify-framework-local-mocking/).
+
+## 🎉 Congratulations!
+
+You have now successfully provisioned the remote servers and hopefully were able
+to test all your resources locally using the GraphiQL IDE.
+
+Stay tuned for the next part of this series that will take you through integrating AWS into your React app.
+
+<div class="mt-4 space-y-4">
+  <p>Do you think something is missing from this article?</p>
+  <div>
+    <a class="text-teal-500" href="https://twitter.com/SpyrouYannis">
+      Let me know on Twitter.
+    </a>
+  </div>
+</div>

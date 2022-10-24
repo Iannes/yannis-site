@@ -83,15 +83,17 @@ const ContactForm = () => {
         />
       </div>
       <div className="relative mb-4">
-        {/* <label htmlFor="message">Message</label> <br /> */}
+        <label className="invisible" htmlFor="message">
+          Message
+        </label>
         <textarea
           aria-invalid={errors.message ? 'true' : 'false'}
           {...register('message')}
           name="message"
           id="message"
-          className="input"
+          className="input dark:bg-gray-200 dark:caret-gray-900 dark:text-gray-900 autofill:bg-yellow-200"
           placeholder="Message*"
-        ></textarea>
+        />
         {errors.message?.type === 'required' && (
           <div className="text-red-600 block mt-1" role="alert">
             Message is required
@@ -99,12 +101,12 @@ const ContactForm = () => {
         )}
       </div>
       <div className="text-left">
-        <button type="submit" className="button button-secondary">
+        <button type="submit" className="button bg-teal-700 hover:bg-teal-600 duration-300 ease-in-out transition">
           Submit
         </button>
       </div>
       {success && (
-        <div className="text-green-600 block mt-1">
+        <div className="text-teal-600 block mt-1">
           Thank you for your message&#x21; I will get back to you within the next 24 hours.
         </div>
       )}

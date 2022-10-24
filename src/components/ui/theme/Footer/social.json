@@ -5,10 +5,16 @@
     "link": "https://github.com/Iannes",
     "icon": "/assets/social/github.svg"
   },
-  {
-    "id": 3,
+	{
+    "id": 2,
     "name": "Twitter",
     "link": "https://twitter.com/SpyrouYannis",
     "icon": "/assets/social/twitter.svg"
+  },
+  {
+    "id": 3,
+    "name": "Linkedin",
+    "link": "https://www.linkedin.com/in/yannis-spyrou-8624ab25/",
+    "icon": "/assets/social/linkedin.svg"
   }
 ]

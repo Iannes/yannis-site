@@ -2,7 +2,7 @@ import { ReactNode } from 'react';
 import Footer from 'components/ui/theme/Footer';
 
 type LayoutProps = {
-  children: ReactNode;
+  children: ReactNode | ReactNode[];
 };
 
 const Layout = ({ children }: LayoutProps) => (
