@@ -142,6 +142,9 @@ export const PostSidebar: React.FC<any> = ({ categories, next, prev }) => {
           )}
         </div>
       )}
+      <div className="pt-4 xl:pt-8 text-teal-500 hover:text-teal-600 dark:hover:text-teal-400">
+        <Link href="/blog">&larr; Back to the blog</Link>
+      </div>
     </div>
   );
 };
