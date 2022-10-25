@@ -6,6 +6,11 @@ type NavigationControlProps = {
   text: string;
 };
 
+type NavigationControlsProps = {
+  prev: Post;
+  next: Post;
+};
+
 export const NavigationControl: React.FC<NavigationControlProps> = ({ postInfo, text }) => {
   return (
     <div>
@@ -15,4 +20,13 @@ export const NavigationControl: React.FC<NavigationControlProps> = ({ postInfo, 
       </div>
     </div>
   );
+};
+
+export const NavigationControls: React.FC<NavigationControlsProps> = ({ prev, next }) => {
+  return next || prev ? (
+    <nav className="flex justify-between py-4 xl:block xl:space-y-8 xl:py-8">
+      {prev && <NavigationControl postInfo={prev} text="Previous Article" />}
+      {next && <NavigationControl postInfo={next} text="Next Article" />}
+    </nav>
+  ) : null;
 };
