@@ -20,11 +20,9 @@ export const Categories: React.FC<CategoriesProps> = ({ categories }) => {
 };
 
 const Category: React.FC<CategoryProps> = ({ category }) => {
+  const className = 'mr-3 text-sm font-medium uppercase text-teal-500 hover:text-teal-600 dark:hover:text-teal-400';
   return (
-    <p
-      className="mr-3 text-sm font-medium uppercase text-teal-500 hover:text-teal-600 dark:hover:text-teal-400"
-      key={category}
-    >
+    <p className={className} key={category}>
       {category}
     </p>
   );
