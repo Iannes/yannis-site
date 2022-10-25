@@ -1,11 +1,17 @@
 import React, { useState } from 'react';
-import Link from 'next/link';
-import { formatDate } from 'utils/formatDate';
 import { BlogPost } from 'pages/blog';
 import { ListLayoutHeader } from './ListLayoutHeader';
+import { ListItem } from './ListItem';
 
-export default function ListLayout({ posts, initialDisplayPosts = [], pagination }: any) {
+type ListLayoutProps = {
+  posts: BlogPost[];
+  initialDisplayPosts: BlogPost[];
+  pagination: any;
+};
+
+const ListLayout: React.FC<ListLayoutProps> = ({ posts, initialDisplayPosts = [], pagination }) => {
   const [searchValue, setSearchValue] = useState('');
+
   const filteredBlogPosts = posts.filter((post: BlogPost) => {
     const searchContent = post.data.title;
     return searchContent.toLowerCase().includes(searchValue.toLowerCase());
@@ -27,38 +33,7 @@ export default function ListLayout({ posts, initialDisplayPosts = [], pagination
             const { date, title, categories } = post?.data;
             const slug = getSlug(post);
             return (
-              <li key={slug} className="py-4">
-                <article className="space-y-2 xl:grid xl:grid-cols-4 xl:items-baseline xl:space-y-0">
-                  <dl>
-                    <dt className="sr-only">Published on</dt>
-                    <dd className="text-base font-medium leading-6 text-gray-500 dark:text-gray-400">
-                      <time dateTime={date}>{formatDate(date)}</time>
-                    </dd>
-                  </dl>
-                  <div className="space-y-3 xl:col-span-3">
-                    <div>
-                      <h3 className="mb-1 text-2xl font-bold leading-8 tracking-tight">
-                        <Link href={`/posts/${slug}`} className="text-gray-900 dark:text-gray-100" passHref>
-                          <a>{title}</a>
-                        </Link>
-                      </h3>
-                      <div className="flex flex-wrap">
-                        {categories.map((category: string) => (
-                          <span key={category} className="mr-3 text-sm font-medium uppercase text-teal-500">
-                            {category}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-                    <div className="prose max-w-none text-gray-500 dark:text-gray-400 line-clamp-2">{content}</div>
-                    <div className="text-teal-500 hover:text-teal-600 dark:hover:text-teal-400 leading-6">
-                      <Link href={`/posts/${slug}`} aria-label={`Read "${title}"`}>
-                        Read more &rarr;
-                      </Link>
-                    </div>
-                  </div>
-                </article>
-              </li>
+              <ListItem key={slug} slug={slug} title={title} categories={categories} date={date} content={content} />
             );
           })}
         </ul>
@@ -68,6 +43,8 @@ export default function ListLayout({ posts, initialDisplayPosts = [], pagination
       )} */}
     </div>
   );
-}
+};
 
 const getSlug = (post: BlogPost) => post.filePath.replace(/\.mdx?$/, '');
+
+export default ListLayout;

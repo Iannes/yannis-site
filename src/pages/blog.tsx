@@ -37,7 +37,7 @@ const Blog: React.FC<BlogProps> = ({ posts, initialDisplayPosts, pagination }) =
       <Header page="blog" />
       <Layout>
         <SEO title="Blog: Yannis Spyrou " location="/blog" />
-        <ListLayout posts={posts} initialDisplayPosts={initialDisplayPosts} pagination={pagination} title="All Posts" />
+        <ListLayout posts={posts} initialDisplayPosts={initialDisplayPosts} pagination={pagination} />
       </Layout>
     </>
   );
