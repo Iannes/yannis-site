@@ -18,7 +18,7 @@ const Skills = () => (
           I am a frontend engineer, experienced with all development cycle stages on several web projects. Currently
           working with React, TypeScript, Gatsby &amp; Next.
         </p>
-        <Link href="#contact" passHref>
+        <Link href="#contact" scroll={false}>
           <a className="hover:bg-teal-500 duration-300 ease-in-out transition button bg-teal-600">Contact</a>
         </Link>
       </div>

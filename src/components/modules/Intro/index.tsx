@@ -14,7 +14,7 @@ const Intro = () => (
         <h2 className="mb-[2.5rem] text-2xl md:text-4xl text-brand-secondary dark:text-slate-200 typography">
           I&apos;m Yannis, a frontend engineer working with React &amp; TypeScript&#x21;
         </h2>
-        <Link href="#contact" passHref>
+        <Link href="#contact" scroll={false}>
           <a className="button bg-teal-600 hover:translate-y-minus-2 hover:translate-y-minus-2 hover:bg-teal-500 duration-300 ease-in-out transition">
             Contact
           </a>
