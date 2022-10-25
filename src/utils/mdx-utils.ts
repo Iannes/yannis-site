@@ -6,6 +6,11 @@ import rehypePrism from '@mapbox/rehype-prism';
 import remarkGfm from 'remark-gfm';
 import { BlogPost } from 'pages/blog';
 
+export type Post = {
+  title: string;
+  slug: string;
+};
+
 // POSTS_PATH is useful when you want to get the path to a specific file
 export const POSTS_PATH = path.join(process.cwd(), 'posts');
 
@@ -58,7 +63,7 @@ export const getPostBySlug = async (slug: string) => {
   return { mdxSource, data, postFilePath };
 };
 
-export const getNextPostBySlug = (slug: string) => {
+export const getNextPostBySlug = (slug: string): Post | null => {
   const posts = getPosts();
   const currentFileName = `${slug}.mdx`;
   const currentPost = posts.find((post) => post.filePath === currentFileName);
@@ -76,7 +81,7 @@ export const getNextPostBySlug = (slug: string) => {
   };
 };
 
-export const getPreviousPostBySlug = (slug: string) => {
+export const getPreviousPostBySlug = (slug: string): Post | null => {
   const posts = getPosts();
   const currentFileName = `${slug}.mdx`;
   const currentPost = posts.find((post) => post.filePath === currentFileName);
