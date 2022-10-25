@@ -1,4 +1,3 @@
-import Link from 'next/link';
 import Layout from 'components/ui/Layout';
 import SEO from 'components/SEO';
 import Header from 'components/ui/theme/Header';
