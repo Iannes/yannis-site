@@ -3,7 +3,7 @@ import Layout from 'components/ui/Layout';
 import SEO from 'components/SEO';
 import Header from 'components/ui/theme/Header';
 import { getPosts } from 'utils/mdx-utils';
-import ListLayout from 'components/ui/Posts/PostContent/ListLayout';
+import ListLayout from 'components/ui/Posts/ListLayout';
 
 export const sortPostsByDate = (posts: BlogPost[]) => {
   return posts.sort((a: BlogPost, b: BlogPost) => {
