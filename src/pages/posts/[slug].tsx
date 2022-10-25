@@ -1,12 +1,14 @@
 import { ReactFCC } from '../../../types';
-import { getNextPostBySlug, getPostBySlug, getPreviousPostBySlug, postFilePaths } from 'utils/mdx-utils';
-
 import { MDXRemote } from 'next-mdx-remote';
 import Head from 'next/head';
 import Link from 'next/link';
+import Image from 'next/image';
+
 import Layout from 'components/ui/Layout';
 import Header from 'components/ui/theme/Header';
-import Image from 'next/image';
+import { PostSidebar } from 'components/ui/Posts/PostSidebar';
+
+import { getNextPostBySlug, getPostBySlug, getPreviousPostBySlug, postFilePaths } from 'utils/mdx-utils';
 
 const CustomP: ReactFCC = ({ children }) => {
   return <p className="max-w-none text-lg">{children}</p>;
@@ -99,54 +101,6 @@ const PostPage: React.FC<PostPageProps> = ({ source, frontMatter, prevPost, next
         </article>
       </div>
     </Layout>
-  );
-};
-
-export const PostSidebar: React.FC<any> = ({ categories, next, prev }) => {
-  return (
-    <div className="divide-gray-200 text-sm font-medium leading-5 dark:divide-gray-700 xl:col-start-1 xl:row-start-2 xl:divide-y">
-      {categories && (
-        <div className="py-4 xl:py-8">
-          <h2 className="text-xs uppercase tracking-wide text-gray-500 dark:text-gray-400 mb-2">categories</h2>
-          <div className="flex flex-wrap">
-            {categories.map((category: string) => (
-              // <Category key={category} text={category} />
-              <p
-                className="mr-3 text-sm font-medium uppercase text-teal-500 hover:text-teal-600 dark:hover:text-teal-400"
-                key={category}
-              >
-                {category}
-              </p>
-            ))}
-          </div>
-        </div>
-      )}
-      {(next || prev) && (
-        <div className="flex justify-between py-4 xl:block xl:space-y-8 xl:py-8">
-          {prev && (
-            <div>
-              <h2 className="text-xs uppercase tracking-wide text-gray-500 dark:text-gray-400 mb-2">
-                Previous Article
-              </h2>
-              <div className="text-teal-500 hover:text-teal-600 dark:hover:text-teal-400">
-                <Link href={`/posts/${prev.slug}`}>{prev.title}</Link>
-              </div>
-            </div>
-          )}
-          {next && (
-            <div>
-              <h2 className="text-xs uppercase tracking-wide text-gray-500 dark:text-gray-400 mb-2">Next Article</h2>
-              <div className="text-teal-500 hover:text-teal-600 dark:hover:text-teal-400">
-                <Link href={`/posts/${next.slug}`}>{next.title}</Link>
-              </div>
-            </div>
-          )}
-        </div>
-      )}
-      <div className="pt-4 xl:pt-8 text-teal-500 hover:text-teal-600 dark:hover:text-teal-400">
-        <Link href="/blog">&larr; Back to the blog</Link>
-      </div>
-    </div>
   );
 };
 
