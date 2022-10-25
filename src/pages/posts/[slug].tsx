@@ -4,11 +4,13 @@ import Head from 'next/head';
 import Link from 'next/link';
 import Image from 'next/image';
 
+import { FrontMatterData } from 'pages/blog';
 import Layout from 'components/ui/Layout';
 import Header from 'components/ui/theme/Header';
 import { PostSidebar } from 'components/ui/Posts/PostSidebar';
+import { PostHeader } from 'components/ui/Posts/PostHeader';
 
-import { getNextPostBySlug, getPostBySlug, getPreviousPostBySlug, postFilePaths } from 'utils/mdx-utils';
+import { getNextPostBySlug, getPostBySlug, getPreviousPostBySlug, Post, postFilePaths } from 'utils/mdx-utils';
 
 const CustomP: ReactFCC = ({ children }) => {
   return <p className="max-w-none text-lg">{children}</p>;
@@ -47,9 +49,9 @@ const components = {
 
 type PostPageProps = {
   source: any;
-  frontMatter: any;
-  prevPost: any;
-  nextPost: any;
+  frontMatter: FrontMatterData;
+  prevPost: Post;
+  nextPost: Post;
 };
 
 const postDateTemplate = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' } as const;
@@ -61,30 +63,14 @@ const PostPage: React.FC<PostPageProps> = ({ source, frontMatter, prevPost, next
       <div className="mx-auto max-w-3xl px-4 sm:px-6 xl:max-w-5xl xl:px-0">
         <article className="px-2 md:px-10 lg:px-12">
           <div className="xl:divide-y xl:divide-gray-200 xl:dark:divide-gray-700">
-            <header className="pt-6 xl:pb-6">
-              <div className="space-y-1 text-center">
-                <dl className="space-y-10">
-                  <div>
-                    <dt className="sr-only">Published on</dt>
-                    <dd className="text-base font-medium leading-6 text-gray-500 dark:text-gray-400">
-                      <time dateTime={frontMatter.date}>
-                        {new Date(frontMatter.date).toLocaleDateString('en-US', postDateTemplate)}
-                      </time>
-                    </dd>
-                  </div>
-                </dl>
-                <div>
-                  <h1 className="text-3xl md:text-4xl dark:text-white text-center">{frontMatter.title}</h1>
-                </div>
-              </div>
-            </header>
+            <PostHeader frontMatter={frontMatter} />
             <div
               className="divide-y divide-gray-200 pb-8 dark:divide-gray-700 xl:grid xl:grid-cols-4 xl:gap-x-6 xl:divide-y-0"
               style={{ gridTemplateRows: 'auto 1fr' }}
             >
               <div className="divide-y divide-gray-200 dark:divide-gray-700 xl:col-span-3 xl:row-span-2 xl:pb-0">
                 <div className="prose max-w-none pt-10 pb-8 dark:prose-dark">
-                  {frontMatter.description && <p className="text-xl mb-4">{frontMatter.description}</p>}
+                  {/* {frontMatter.description && <p className="text-xl mb-4">{frontMatter.description}</p>} */}
                   <main>
                     <div className="container flex items-center flex-col md:flex-row justify-between">
                       <div className="flex-1 w-full md:w-1/2 mb-8 md:mb-0 prose dark:prose-dark">
