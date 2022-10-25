@@ -1,11 +1,7 @@
-import { ReactNode } from 'react';
+import { ReactFCC } from '../../../../types';
 import Footer from 'components/ui/theme/Footer';
 
-type LayoutProps = {
-  children: ReactNode | ReactNode[];
-};
-
-const Layout = ({ children }: LayoutProps) => (
+const Layout: ReactFCC = ({ children }) => (
   <>
     {children}
     <Footer />

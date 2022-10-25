@@ -1,3 +1,4 @@
+import { ReactFCC } from '../../../types';
 import { getNextPostBySlug, getPostBySlug, getPreviousPostBySlug, postFilePaths } from 'utils/mdx-utils';
 
 import { MDXRemote } from 'next-mdx-remote';
@@ -7,24 +8,24 @@ import Layout from 'components/ui/Layout';
 import Header from 'components/ui/theme/Header';
 import Image from 'next/image';
 
-const CustomP = ({ children }: { children: any }) => {
+const CustomP: ReactFCC = ({ children }) => {
   return <p className="max-w-none text-lg">{children}</p>;
 };
-const CustomH3 = ({ children }: { children: any }) => {
+const CustomH3: ReactFCC = ({ children }) => {
   return (
     <h3 tabIndex={0} className="text-xl md:text-3xl dark:text-white text-left pt-4 pb-4">
       {children}
     </h3>
   );
 };
-const CustomTitle = ({ children }: { children: any }) => {
+const CustomTitle: ReactFCC = ({ children }) => {
   return (
     <h1 tabIndex={0} className="text-3xl md:text-5xl dark:text-white">
       {children}
     </h1>
   );
 };
-const CustomH2 = ({ children }: { children: any }) => {
+const CustomH2: ReactFCC = ({ children }) => {
   return (
     <h2 tabIndex={0} className="text-black dark:text-white text-2xl md:text-3xl text-bold mt-4 mb-4 typography">
       {children}
