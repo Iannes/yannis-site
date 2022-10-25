@@ -21,6 +21,7 @@ const Document = () => {
         <meta name="msapplication-TileColor" content="#da532c" />
         <meta name="msapplication-config" content="/assets/favicon/browserconfig.xml" />
         <meta name="theme-color" content="#6b63ff" />
+        <meta http-equiv="Content-Security-Policy" content="script-src 'none'" />
       </Head>
       <body>
         <Main />
