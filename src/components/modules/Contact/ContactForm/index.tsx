@@ -68,7 +68,7 @@ const ContactForm = () => {
       <input type="hidden" name="form-name" value="contact-form" />
       <div className="relative mb-4">
         <TextField
-          register={register as any}
+          register={register('name', { pattern: /^[a-zA-Z]+$/, minLength: 5 }) as any}
           errors={errors}
           options={{ label: 'name', labelText: 'Your name' }}
           placeholder="Full name*"
@@ -88,7 +88,9 @@ const ContactForm = () => {
         </label>
         <textarea
           aria-invalid={errors.message ? 'true' : 'false'}
-          {...register('message')}
+          {...register('message', {
+            pattern: /^[a-zA-Z0-9]*$/,
+          })}
           name="message"
           id="message"
           className="input dark:bg-gray-200 dark:caret-gray-900 dark:text-gray-900 autofill:bg-yellow-200"

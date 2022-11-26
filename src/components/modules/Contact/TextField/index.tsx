@@ -1,9 +1,9 @@
 import * as React from 'react';
-import { FieldErrorsImpl, UseFormRegister, FieldValues } from 'react-hook-form';
+import { FieldErrorsImpl, UseFormRegister, FieldValues, RegisterOptions } from 'react-hook-form';
 import ErrorMessage from 'components/modules/ErrorMessage';
 
 type Props = {
-  register: UseFormRegister<FieldValues>;
+  register: UseFormRegister<FieldValues & RegisterOptions>;
   errors: Partial<
     FieldErrorsImpl<{
       name: string;
@@ -30,7 +30,7 @@ const TextField: React.FC<Props> = ({ register, errors, options, placeholder }) 
         {labelText}
       </label>
       <input
-        {...register(label)}
+        {...register}
         aria-labelledby={ariaLabelledBy}
         aria-invalid={errors[label] ? 'true' : 'false'}
         type={label}
