@@ -1,0 +1,189 @@
+---
+date: '2025-02-12'
+title: 'How to Upload, Parse, and Extract Emails from PDFs in Next.js v14'
+imagePath: '/assets/postsImages/2025-02-12-pdf-email-extraction.jpg'
+categories:
+  - Next.js
+  - Supabase
+  - PDF Parsing
+  - Web Development
+slug: 'how-to-upload-and-parse-a-pdf-in-nextjs'
+---
+
+I recently faced a challenge: I needed a way to extract email addresses from PDFs in my Next.js v14 app while ensuring only authenticated users with an active subscription could access the functionality. After trying several approaches, I settled on a solution that combines Supabase for auth, a secure API route for PDF processing, and **pdf2json** for parsing the PDF content.
+
+In this post, I'll walk you through how to build a secure PDF email extractor—from setting up the authentication to processing PDFs on the server side.
+
+## 📚 Prerequisites & Dependencies
+
+Before diving in, make sure you have:
+
+- A Next.js v14 project with App Router enabled
+- Supabase configured for authentication with environment variables set up:
+  ```bash
+  NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
+  NEXT_PUBLIC_SUPABASE_ANON_KEY=your_anon_key
+  ```
+- The following dependencies installed:
+  ```bash
+  npm install pdf2json uuid @supabase/supabase-js
+  ```
+
+## Setting Up Authentication & Subscription Checks
+
+The first step in our API route is to verify that the user is authenticated and has an active subscription. Here's how we implement these checks:
+
+```typescript
+export async function POST(request: Request) {
+  // Initialize Supabase client
+  const supabase = createClient();
+  const {
+    data: { session },
+  } = await supabase.auth.getSession();
+  
+  // Check for valid session
+  if (!session) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+  
+  // Verify subscription status
+  const subscription = await getUserSubscription();
+  if (!subscription?.isActive) {
+    return NextResponse.json({ error: "Subscription required" }, { status: 403 });
+  }
+```
+
+This code ensures that only authenticated users with active subscriptions can access our PDF processing functionality. If either check fails, we return an appropriate error response.
+
+## Handling File Upload & Validation
+
+Once we've verified the user's access, we need to handle and validate the uploaded PDF file. We'll check both the file type and size:
+
+```typescript
+const file = formData.get("pdf");
+if (!file || typeof file === "string") {
+  return NextResponse.json({ error: "No file provided" }, { status: 400 });
+}
+
+if (file.type !== "application/pdf") {
+  return NextResponse.json({ error: "Only PDF files are allowed" }, { status: 400 });
+}
+
+if (file instanceof File && file.size > MAX_FILE_SIZE) {
+  return NextResponse.json({ error: "File size exceeds limit" }, { status: 400 });
+}
+```
+
+This validation ensures we're only processing appropriate PDF files and helps prevent potential security issues or resource exhaustion.
+
+## Processing the PDF
+
+After validation, we need to temporarily save the file and process it. We use `uuid` to generate unique filenames and `pdf2json` to extract the text content:
+
+```typescript
+const fileName = uuidv4();
+const tempFilePath = `/tmp/${fileName}.pdf`;
+const fileBuffer = Buffer.from(await file.arrayBuffer());
+await fs.writeFile(tempFilePath, fileBuffer);
+
+const pdfParser = new (PDFParser as any)(null, 1);
+
+const pdfData = await new Promise((resolve, reject) => {
+  pdfParser.on("pdfParser_dataError", reject);
+  pdfParser.on("pdfParser_dataReady", () => {
+    resolve(pdfParser.getRawTextContent());
+  });
+  pdfParser.loadPDF(tempFilePath);
+});
+```
+
+Notice how we use event listeners to handle both successful parsing and potential errors. This ensures we can properly respond to any issues that might arise during PDF processing.
+
+## Extracting Email Addresses
+
+Once we have the raw text content, we can extract email addresses using a regular expression. We also make sure to remove any duplicates:
+
+```typescript
+const emailRegex = /[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-z]{2,}/g;
+const matches = (pdfData as string).match(emailRegex) || [];
+const uniqueEmails = Array.from(new Set(matches));
+
+await fs.unlink(tempFilePath); // Clean up temp file
+return NextResponse.json({ emails: uniqueEmails });
+```
+
+The regex pattern matches standard email formats, and using `Set` ensures we don't return duplicate addresses.
+
+## Error Handling & Cleanup
+
+It's crucial to clean up temporary files, even if an error occurs during processing. Here's how we handle errors:
+
+```typescript
+try {
+  // PDF processing code here
+} catch (error) {
+  await fs.unlink(tempFilePath); // Ensure cleanup on error
+  return NextResponse.json({ error: "Error parsing PDF" }, { status: 500 });
+}
+```
+
+This try-catch block ensures we don't leave any temporary files on the server, regardless of whether the processing succeeds or fails.
+
+## Implementing the Frontend
+
+While the backend handles the heavy lifting, we need a user-friendly way to upload PDFs. Here's a simple upload component using shadcn-ui:
+
+```typescript
+import { Upload } from "lucide-react"
+import { Button } from "@/components/ui/button"
+
+export function UploadButton() {
+  const handleUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+
+    const formData = new FormData();
+    formData.append("pdf", file);
+
+    try {
+      const response = await fetch("/api/upload-pdf", {
+        method: "POST",
+        body: formData,
+      });
+      const data = await response.json();
+      
+      if (data.emails) {
+        toast.success(`Found ${data.emails.length} email addresses!`);
+      }
+    } catch (error) {
+      toast.error("Error processing PDF");
+    }
+  };
+
+  return (
+    <Button variant="outline" size="sm">
+      <Upload className="mr-2 h-4 w-4" />
+      Upload PDF
+      <input
+        type="file"
+        accept=".pdf"
+        className="hidden"
+        onChange={handleUpload}
+      />
+    </Button>
+  );
+}
+```
+
+## Wrapping Up
+
+This solution provides a secure and efficient way to extract emails from PDFs in a Next.js application. By combining Supabase authentication, server-side PDF processing, and proper error handling, we've created a robust system that:
+
+- Only allows authenticated users with active subscriptions to access the functionality
+- Safely handles file uploads and processing
+- Properly cleans up temporary files
+- Provides a smooth user experience
+
+The complete solution is production-ready and can be extended to handle additional use cases, such as processing multiple PDFs simultaneously or extracting different types of data.
+
+I hope you found this guide helpful! If you have any questions or suggestions, feel free to reach out. Happy coding! 🚀

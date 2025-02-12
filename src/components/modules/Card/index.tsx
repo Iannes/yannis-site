@@ -11,6 +11,11 @@ const CATEGORY_COLORS = {
   graphql: 'bg-purple-300',
   appsync: 'bg-pink-300',
   amplify: 'bg-orange-300',
+  supabase: 'bg-green-500',
+  'next.js': 'bg-orange-400',
+  authentication: 'bg-sky-300',
+  'pdf parsing': 'bg-sky-300',
+  'web development': 'bg-slate-300',
 };
 
 const Card = ({ data }: any) => {
